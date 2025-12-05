@@ -1,0 +1,76 @@
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1 (123) 456-7890",
+  "online":false,
+  "experience": [
+    {
+      "role": "Senior Developer",
+      "company": "Tech Corp Inc.",
+      "period": "2020 - Present",
+      "description": [
+        "Led a team of 5 developers to build scalable web applications",
+        "Implemented CI/CD pipelines reducing deployment time by 40%",
+        "Mentored junior developers and conducted code reviews"
+      ],
+      "achievements": [
+        "Reduced API response time by 60% through optimization",
+        "Implemented testing framework increasing coverage to 85%"
+      ]
+    },
+    {
+      "role": "Junior Developer",
+      "company": "Web Solutions LLC",
+      "period": "2018 - 2020",
+      "description": [
+        "Developed and maintained client websites using modern JavaScript frameworks",
+        "Collaborated with designers to implement responsive UIs",
+        "Participated in agile development processes"
+      ],
+      "achievements": []
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Sc. Computer Science",
+      "institution": "State University",
+      "year": "2018",
+      "courses": [
+        "Data Structures & Algorithms",
+        "Database Systems",
+        "Web Development",
+        "Machine Learning"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "level": 90
+    },
+    {
+      "name": "React",
+      "level": 85
+    },
+    {
+      "name": "Node.js",
+      "level": 80
+    },
+    {
+      "name": "TypeScript",
+      "level": 50
+    },
+    {
+      "name": "GraphQL",
+      "level": 70
+    },
+    {
+      "name": "AWS",
+      "level": 70
+    }
+  ],
+  "about": "I'm a passionate developer with 5+ years of experience building web applications. I specialize in React, Node.js, and cloud technologies.",
+  "address": "San Francisco, CA",
+  "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+  "resumeUrl": "#"
+}
