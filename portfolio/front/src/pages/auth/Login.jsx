@@ -174,7 +174,7 @@ function Login() {
                     ref={emailRef}
                     value={formData.email}
                     onChange={handleChange}
-                    className={`pl-10 block w-full px-4 py-3 rounded-lg border ${
+                    className={`pl-10 block w-full px-4 py-3 text-black rounded-lg border ${
                       errors.email
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
                         : "border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
@@ -231,7 +231,7 @@ function Login() {
                     minLength="6"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`pl-10 block w-full px-4 py-3 rounded-lg border ${
+                    className={`pl-10 block w-full px-4 py-3  text-black rounded-lg border ${
                       errors.password
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
                         : "border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"

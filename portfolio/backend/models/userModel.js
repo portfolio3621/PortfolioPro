@@ -83,7 +83,6 @@ const userModel = new mongoose.Schema(
     project: [projects],
     experience: [experiences],
     education: [educations],
-    portfolio: [String],
     resetPasswordToken: String,
     resetPasswordTokenExpire: Date,
     online:Boolean,

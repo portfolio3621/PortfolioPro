@@ -19,6 +19,10 @@ const portfolioModel = new mongoose.Schema(
       type: String,
       require: true,
     },
+    category:{
+      type:String,
+      require: true,
+    },
     Type:{
       type:String,
       enum:["Basic","Standard","Premium"],

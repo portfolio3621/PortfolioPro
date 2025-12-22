@@ -8,8 +8,9 @@ const {
   recoverBill,
 } = require("../controllers/BillControllers");
 const router = express.Router();
+const { isAuthenticatedUser } = require("../utils/auth");
 
-router.post("/", bookBill);
+router.route("/").post(isAuthenticatedUser, bookBill);
 router.post("/recover", recoverBill);
 router.get("/", getAllBill);
 router.get("/:id", getBill);

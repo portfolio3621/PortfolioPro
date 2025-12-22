@@ -24,6 +24,7 @@ const PortfolioAdmin = () => {
     path: "",
     thumbnail: "",
     price: "",
+    category: "",
     Type: "Basic",
   });
   const [showModal, setShowModal] = useState(false);
@@ -114,6 +115,7 @@ const PortfolioAdmin = () => {
           path: "",
           thumbnail: "",
           price: "",
+          category: "",
           Type: "Basic",
         });
         setEditingId(null);
@@ -136,6 +138,7 @@ const PortfolioAdmin = () => {
             path: "",
             thumbnail: "",
             price: "",
+            category: "",
             Type: "Basic",
           });
           setEditingId(null);
@@ -152,6 +155,7 @@ const PortfolioAdmin = () => {
       path: portfolio.path,
       thumbnail: portfolio.thumbnail,
       price: portfolio.price,
+      category: portfolio.category,
       Type: portfolio.Type,
     });
     setEditingId(portfolio._id);
@@ -321,6 +325,7 @@ const PortfolioAdmin = () => {
                       Price {getSortIndicator("price")}
                     </div>
                   </th>
+                  <th>Category</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -344,7 +349,8 @@ const PortfolioAdmin = () => {
                           rel="noopener noreferrer"
                           className="text-xs text-primary flex items-center gap-1 mt-1"
                         >
-                          <FiExternalLink size={12} /> View
+                          <FiExternalLink size={12} />
+                          View
                         </a>
                       </td>
                       <td>
@@ -377,6 +383,11 @@ const PortfolioAdmin = () => {
                         <div className="flex items-center gap-1">
                           <FiDollarSign size={14} />
                           <span>{portfolio.price}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex items-center gap-1">
+                          <span>{portfolio.category}</span>
                         </div>
                       </td>
                       <td>
@@ -452,6 +463,7 @@ const PortfolioAdmin = () => {
                       path: "",
                       thumbnail: "",
                       price: "",
+                      category: "",
                       Type: "Basic",
                     });
                   }}
@@ -552,6 +564,23 @@ const PortfolioAdmin = () => {
 
                     <div className="form-control">
                       <label className="label">
+                        <span className="label-text flex items-center gap-2">
+                          Category
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleInputChange}
+                        className="input input-bordered w-full"
+                        placeholder="Category of the portfolio"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-control">
+                      <label className="label">
                         <span className="label-text">Type</span>
                       </label>
                       <div className="grid grid-cols-3 gap-2">
@@ -587,6 +616,7 @@ const PortfolioAdmin = () => {
                         path: "",
                         thumbnail: "",
                         price: "",
+                        category: "",
                         Type: "Basic",
                       });
                     }}

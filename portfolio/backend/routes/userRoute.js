@@ -38,7 +38,7 @@ router.route("/delete-user").delete(isAuthenticatedUser, deleteSingleData);
 router.route("/get-data").get(isAuthenticatedUser, getSingleData);
 
 // Add new experience to user's array
-router.route("/experience").get(isAuthenticatedUser, addExperience);
+router.route("/experience").put(isAuthenticatedUser, addExperience);
 
 // Update experience at a specific index
 router.route("/experience/:index").put(isAuthenticatedUser, updateExperience); // add this in controller

@@ -4,8 +4,9 @@ const crypto = require("crypto");
 
 exports.bookBill = async (req, res) => {
   try {
-    const { portfolioId, userId, status } = req.body;
-    if (!portfolioId || !userId || !status) {
+    const { portfolioId, status } = req.body;
+    const userId = req.user.id;
+    if (!portfolioId || !status) {
       return Message(
         res,
         400,
@@ -68,6 +69,7 @@ exports.updateBill = async (req, res) => {
     Message(res, 400, false, err.message);
   }
 };
+
 
 exports.getAllBill = async (req, res) => {
   try {
