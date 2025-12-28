@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaLockOpen, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import Fetch from "../../Fetch.js";
 
 export default function ClaimPortfolio() {
   const [token, setToken] = useState("");
@@ -14,8 +15,7 @@ export default function ClaimPortfolio() {
 
     try {
       // Simulate API call
-      const res = await fetch(`/api/claim-portfolio/${token}`);
-      const data = await res.json();
+      const data = await Fetch.put(`bill/recover`,{ token })
 
       if (data.success) {
         setStatus("success");
@@ -24,7 +24,7 @@ export default function ClaimPortfolio() {
         setStatus("error");
       }
     } catch (err) {
-      console.error(err);
+      console.log(err);
       setStatus("error");
     }
   };

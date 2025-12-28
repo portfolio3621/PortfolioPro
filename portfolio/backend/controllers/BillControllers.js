@@ -14,8 +14,7 @@ exports.bookBill = async (req, res) => {
         "PortfolioId,userId and status is required"
       );
     }
-    let token = crypto.randomBytes(20).toString("hex");
-    const data = await Bill.create({ portfolioId, status, userId, token });
+    const data = await Bill.create({ portfolioId, status, userId });
     Message(res, 201, true, "Bill has booked", data);
   } catch (err) {
     Message(res, 400, false, err.message);
@@ -38,14 +37,29 @@ exports.getBill = async (req, res) => {
 exports.recoverBill = async (req, res) => {
   try {
     const { token } = req.body;
-    if (!token) return Message(res, 400, false, "Token is required");
-    const bill = await Bill.findOne({ token });
-    if (!bill)
+    const userId = req.user.id;
+
+    if (!token) {
+      return Message(res, 400, false, "Token is required");
+    }
+
+    const bill = await Bill.findOneAndUpdate(
+      { token },                 // ✅ query by token
+      {
+        token: null,
+        userId,
+        status:"Claim"
+      },
+      { new: true }
+    );
+
+    if (!bill) {
       return Message(res, 400, false, "Your Token is Wrong, please check");
+    }
 
     Message(res, 200, true, "Bill recovered successfully", bill);
   } catch (err) {
-    Message(res, 400, false, err.message);
+    Message(res, 500, false, err.message, err);
   }
 };
 
@@ -67,6 +81,43 @@ exports.updateBill = async (req, res) => {
     Message(res, 200, true, "Successfully updated", data);
   } catch (err) {
     Message(res, 400, false, err.message);
+  }
+};
+
+exports.unClaimOrClaimBill = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id) {
+      return Message(res, 400, false, "Id is required");
+    }
+
+    // ✅ Correct validation
+    if (status !== "Claim" && status !== "UnClaim") {
+      return Message(res, 400, false, "Bill status is wrong");
+    }
+
+    const bill = await Bill.findById(id);
+    if (!bill) {
+      return Message(res, 404, false, "Bill not found");
+    }
+
+    let updateData = { status };
+
+    // ✅ Only generate token for UnClaim
+    if (status === "UnClaim") {
+      updateData.token = crypto.randomBytes(20).toString("hex");
+    } else {
+      updateData.token = null;
+    }
+
+    const data = await Bill.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    Message(res, 200, true, "Successfully updated", data);
+  } catch (err) {
+    Message(res, 500, false, err.message);
   }
 };
 

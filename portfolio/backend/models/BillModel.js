@@ -16,7 +16,7 @@ const BillModel = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Claim", "UnClaim", "Trial"],
+      enum: ["Claim", "UnClaim"],
     },
     unclaimedAt: Date,
     createdAt: {

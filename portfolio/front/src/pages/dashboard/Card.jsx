@@ -13,6 +13,9 @@ import {
 import { TbCurrencyBitcoin, TbLeaf } from "react-icons/tb";
 import { MdContentCopy, MdArrowOutward } from "react-icons/md";
 import { BsLightningCharge } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
+const BASE_URL = window.location.origin;
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -159,11 +162,11 @@ export default function Card({ portfolios }) {
                   <input
                     type="text"
                     readOnly
-                    value={`/portfolio/${portfolio.id}`}
+                    value={`${BASE_URL}/portfolio/public/${portfolio.id}`}
                     className="flex-1 bg-transparent text-sm text-gray-700 dark:text-gray-300 truncate outline-none"
                   />
                   <button
-                    onClick={() => handleCopy(portfolio.id, `/portfolio/${portfolio.id}`)}
+                    onClick={() => handleCopy(portfolio.id, `${BASE_URL}/portfolio/public/${portfolio.id}`)}
                     className={`p-2 rounded-lg transition-colors ${
                       copiedId === portfolio.id 
                         ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
@@ -189,18 +192,20 @@ export default function Card({ portfolios }) {
 
               {/* Action Buttons */}
               <div className="grid grid-cols-2 gap-3">
-                <a
-                  href={`/portfolio/${portfolio.id}`}
+                <Link
+                  to={`/manage/bill/${portfolio.id}`}
                   className="flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-3 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   <FiEye />
                   View Details
-                </a>
-
+                </Link>
                 <button className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-300">
+                <Link to={`${BASE_URL}/portfolio/public/${portfolio.id}`}>
                   <FiExternalLink />
                   Preview
+                </Link>
                 </button>
+                
               </div>
             </div>
           </div>

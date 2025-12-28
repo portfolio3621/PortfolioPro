@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { motion } from "framer-motion";
 import Fetch from "../../../Fetch.js";
+import { Link } from "react-router-dom";
 
 const getBadgeColor = (type) => {
   switch (type) {
@@ -32,9 +33,6 @@ export default function PortfolioBuyCard({ data, closeBuyPortfolioModel }) {
     };
   }, [closeBuyPortfolioModel]);
 
-  const handlePreview = () => {
-    window.open(data.previewUrl || data.thumbnail, "_blank");
-  };
 
   const handleBuyNow = async () => {
     try {
@@ -130,13 +128,13 @@ export default function PortfolioBuyCard({ data, closeBuyPortfolioModel }) {
         <motion.button
           whileTap={{ scale: 0.95 }}
           whileHover={{ scale: 1.05 }}
-          onClick={handlePreview}
           disabled={loading}
           className="w-1/2 py-3 border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-zinc-800 rounded-xl text-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
+        <Link to={`/portfolio/template/${data._id}`}>
           Preview
+        </Link>
         </motion.button>
-
         <motion.button
           whileTap={{ scale: 0.95 }}
           whileHover={{ scale: 1.05 }}

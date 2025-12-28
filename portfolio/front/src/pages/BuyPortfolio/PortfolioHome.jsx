@@ -36,7 +36,7 @@ function PortfolioHome() {
 
   return (
     <div>
-      {cookie.userId && <Nav removeCookie={removeCookie} userData={userData} />}
+      {cookie.userId && <Nav removeCookie={removeCookie} userData={userData} place="portfolio"/>}
       <Routes>
         <Route path="/buy" element={<BuyPortfolioHome />} />
         <Route
@@ -45,7 +45,7 @@ function PortfolioHome() {
             userId ? (
               <ClaimPortfolio />
             ) : (
-              <Navigate to="/buy-portfolio" replace />
+              <Navigate to="/portfolio/buy" replace />
             )
           }
         />

@@ -48,7 +48,7 @@ const handleAvatarChange = async (event) => {
 
     // 2️⃣ UPLOAD NEW AVATAR
     const fileExt = file.name.split(".").pop();
-    const fileName = `avatar-${Date.now()}.${fileExt}`;
+    const fileName = `Avatars/avatar-${Date.now()}.${fileExt}`;
 
     const { error: uploadError } = await supabase.storage
       .from("avatars")
@@ -63,7 +63,6 @@ const handleAvatarChange = async (event) => {
     const { data } = supabase.storage
       .from("avatars")
       .getPublicUrl(fileName);
-    console.log(data)
     const avatarUrl = data.publicUrl;
 
     // 4️⃣ SAVE TO BACKEND

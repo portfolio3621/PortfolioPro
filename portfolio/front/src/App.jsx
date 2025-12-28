@@ -5,6 +5,9 @@ import Login from "./pages/auth/Login";
 import GetStarted from "./pages/GetStarted";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Contact from "./pages/component/contact";
+import TermsAndConditions from "./pages/component/TermsAndConditions";
+import PrivacyPolicy from "./pages/component/Privacypolicy";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useCookies } from "react-cookie";
@@ -13,6 +16,8 @@ import ManageProfile from "./pages/auth/ManageProfile";
 import EmailEntry from "./pages/auth/ForgotPassword/EmailEntry";
 import ResetPassword from "./pages/auth/ForgotPassword/ResetPassword";
 import PortfolioHome from "./pages/BuyPortfolio/PortfolioHome";
+import ManageBills from "./pages/component/Bill";
+import ExamplePortfolio from "./templates/ExamplePortfolio.jsx";
 
 function App() {
   const [cookie, , removeCookie] = useCookies(["userId"]);
@@ -34,8 +39,13 @@ function App() {
 
       {/* Public routes */}
       <Route path="/get-started" element={<GetStarted />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/help" element={<Contact />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsAndConditions />} />
       <Route path="/portfolio/*" element={<PortfolioHome />} />
       <Route path="/portfolio/public/:id" element={<Portfolio />} />
+      <Route path="/portfolio/template/:id" element={<ExamplePortfolio />} />
 
       {/* Auth routes - only for non-logged in users */}
       <Route
@@ -69,6 +79,12 @@ function App() {
         path="/manage-profile"
         element={
           userId ? <ManageProfile /> : <Navigate to="/get-started" replace />
+        }
+      />
+      <Route
+        path="/manage/bill/:id"
+        element={
+          userId ? <ManageBills /> : <Navigate to="/get-started" replace />
         }
       />
 

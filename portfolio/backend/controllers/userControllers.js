@@ -1,4 +1,6 @@
 const User = require("../models/userModel");
+const Bill = require("../models/BillModel");
+const Portfolio = require("../models/portfolioModel");
 const sendToken = require("../utils/jwt");
 const { Message } = require("../utils/message");
 const sendEmail = require("../utils/sendEmail");
@@ -40,6 +42,90 @@ exports.register = async (req, res) => {
     return Message(res, 201, true, "User registered successfully", userData);
   } catch (err) {
     console.error("Registration error:", err);
+    Message(res, 500, false, "Internal server error");
+  }
+};
+
+exports.socialLinksRegister = async (req, res) => {
+  try {
+    const { socialLinks } = req.body;
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ success: false });
+
+    user.socialLinks = new Map(Object.entries(socialLinks));
+    await user.save();
+
+    res.json({ success: true, data: user });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+}
+
+exports.dashboardData = async (req, res) => {
+  try {
+    const userId = req.user.id || req.user._id;
+
+    const bills = await Bill.find({ userId });
+
+    const data = await Promise.all(
+      bills.map(async (bill) => {
+        const portfolio = await Portfolio.findById(bill.portfolioId);
+
+        if (!portfolio) return null;
+
+        return {
+          id: bill._id,
+          name: portfolio.title,
+          path: `/portfolio/public/${bill._id}`,
+          thumbnail: portfolio.thumbnail,
+          category: portfolio.category,
+          price: portfolio.price,
+        };
+      })
+    );
+
+    // remove null values if portfolio not found
+    const filteredData = data.filter(Boolean);
+
+    Message(res, 200, true, "Dashboard data fetched", filteredData);
+  } catch (err) {
+    console.error("Dashboard error:", err);
+    Message(res, 500, false, "Internal server error");
+  }
+};
+
+exports.dashboardSingleBillData = async (req, res) => {
+  try {
+    const billId = req.params.id
+    const userId = req.user.id || req.user._id;
+
+    const bills = await Bill.find({ userId });
+
+    const data = await Promise.all(
+      bills.map(async (bill) => {
+        const portfolio = await Portfolio.findById(bill.portfolioId);
+
+        if (!portfolio) return null;
+
+        return {
+          id: bill._id,
+          name: portfolio.title,
+          thumbnail: portfolio.thumbnail,
+          category: portfolio.category,
+          price: portfolio.price,
+          status:bill.status,
+          token:bill?.token ?? null,
+          createdAt:bill.createdAt
+        };
+      })
+    );
+
+    // remove null values if portfolio not found
+    const filteredData = data.filter(val => val.id == billId);
+
+    Message(res, 200, true, "Requested bill data fetched", filteredData);
+  } catch (err) {
+    console.error("Dashboard error:", err);
     Message(res, 500, false, "Internal server error");
   }
 };

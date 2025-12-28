@@ -1,76 +1,123 @@
 {
   "name": "John Doe",
+  "title": "Senior Developer",
   "email": "john.doe@example.com",
   "phone": "+1 (123) 456-7890",
-  "online":false,
+  "online": false,
+  "about": "I'm a passionate developer with 5+ years of experience building web applications.",
+  "address": "San Francisco, CA",
+  "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+  "resumeUrl": "#",
+  
+  "socialLinks": {
+    "github": "https://github.com/johndoe",
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "twitter": "https://twitter.com/johndoe"
+  },
+  
+  "projects": [
+    {
+      "title": "Web Project",
+      "description": "project description",
+      "technologies": ["HTML", "CSS"],
+      "link": "#",
+      "github": "#",
+      "imageUrl": "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      "featured": true
+    },
+    {
+      "title": "E-commerce Platform",
+      "description": "A full-featured e-commerce platform with payment integration",
+      "technologies": ["React", "Node.js", "MongoDB", "Stripe"],
+      "link": "#",
+      "github": "#",
+      "imageUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "featured": true
+    },
+    {
+      "title": "Weather App",
+      "description": "Real-time weather application with location tracking",
+      "technologies": ["JavaScript", "API", "CSS3"],
+      "link": "#",
+      "github": "#",
+      "imageUrl": "https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "featured": false
+    }
+  ],
+
+  "skills": [
+    { "name": "JavaScript", "level": 90, "icon": "JS" },
+    { "name": "React", "level": 85, "icon": "⚛️" },
+    { "name": "Node.js", "level": 80, "icon": "⚙️" },
+    { "name": "TypeScript", "level": 75, "icon": "TS" },
+    { "name": "MongoDB", "level": 70, "icon": "🍃" },
+    { "name": "AWS", "level": 65, "icon": "☁️" },
+    { "name": "Team Leadership", "level": 85, "icon": "👥" },
+    { "name": "Communication", "level": 90, "icon": "💬" },
+    { "name": "Problem Solving", "level": 95, "icon": "🔍" },
+    { "name": "Project Management", "level": 80, "icon": "📋" },
+    { "name": "Agile/Scrum", "level": 85, "icon": "🔄" },
+    { "name": "Code Review", "level": 88, "icon": "✍️" }
+  ],
+
   "experience": [
     {
       "role": "Senior Developer",
       "company": "Tech Corp Inc.",
       "period": "2020 - Present",
       "description": [
-        "Led a team of 5 developers to build scalable web applications",
-        "Implemented CI/CD pipelines reducing deployment time by 40%",
-        "Mentored junior developers and conducted code reviews"
+        "Led a team of 5 developers",
+        "Implemented CI/CD pipelines",
+        "Architected scalable microservices",
+        "Improved application performance by 40%"
       ],
       "achievements": [
-        "Reduced API response time by 60% through optimization",
-        "Implemented testing framework increasing coverage to 85%"
+        "Reduced API response time by 60%",
+        "Implemented automated testing saving 20 hours/week",
+        "Mentored 3 junior developers"
       ]
     },
     {
-      "role": "Junior Developer",
+      "role": "Full Stack Developer",
       "company": "Web Solutions LLC",
       "period": "2018 - 2020",
       "description": [
-        "Developed and maintained client websites using modern JavaScript frameworks",
-        "Collaborated with designers to implement responsive UIs",
-        "Participated in agile development processes"
+        "Developed responsive web applications",
+        "Collaborated with UI/UX designers",
+        "Integrated third-party APIs",
+        "Performed code reviews"
       ],
-      "achievements": []
+      "achievements": [
+        "Increased website traffic by 150%",
+        "Reduced page load time by 70%",
+        "Implemented SEO best practices"
+      ]
     }
   ],
+
   "education": [
     {
       "degree": "B.Sc. Computer Science",
       "institution": "State University",
       "year": "2018",
       "courses": [
-        "Data Structures & Algorithms",
-        "Database Systems",
+        "Data Structures",
         "Web Development",
-        "Machine Learning"
+        "Algorithms",
+        "Database Systems",
+        "Software Engineering"
+      ]
+    },
+    {
+      "degree": "M.Sc. Software Engineering",
+      "institution": "Tech University",
+      "year": "2020",
+      "courses": [
+        "Cloud Computing",
+        "Machine Learning",
+        "DevOps",
+        "System Architecture"
       ]
     }
-  ],
-  "skills": [
-    {
-      "name": "JavaScript",
-      "level": 90
-    },
-    {
-      "name": "React",
-      "level": 85
-    },
-    {
-      "name": "Node.js",
-      "level": 80
-    },
-    {
-      "name": "TypeScript",
-      "level": 50
-    },
-    {
-      "name": "GraphQL",
-      "level": 70
-    },
-    {
-      "name": "AWS",
-      "level": 70
-    }
-  ],
-  "about": "I'm a passionate developer with 5+ years of experience building web applications. I specialize in React, Node.js, and cloud technologies.",
-  "address": "San Francisco, CA",
-  "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg",
-  "resumeUrl": "#"
+  ]
 }
