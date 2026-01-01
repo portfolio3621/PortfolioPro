@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import Fetch from "../Fetch.js";
 import data from "../../../data.json";
+import LoadingSpinner from "../pages/component/Loading.jsx"
 
 // Load all templates at build time
 const templates = import.meta.glob("./portfoilos/*.jsx");
@@ -39,7 +40,12 @@ function ExampleTemplateLoader() {
   }, [id]);
 
   if (error) return <p className="text-red-500">{error}</p>;
-  if (!Comp) return <p>Loading template...</p>;
+  if (!Comp) return <div className="min-h-screen flex items-center justify-center">
+      <LoadingSpinner 
+        type="wave" 
+        message="Loading portfolio template..." 
+      />
+    </div>;
 
   return <Comp portfolioData={data} />;
 }

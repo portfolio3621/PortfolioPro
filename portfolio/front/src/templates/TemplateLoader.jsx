@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import Fetch from "../Fetch.js";
-
+import LoadingSpinner from "../pages/component/Loading.jsx"
 // Load all template files at build time
 const templates = import.meta.glob("./portfoilos/*.jsx");
 
@@ -79,8 +79,16 @@ function TemplateLoader() {
 
   // Handle loading state
   if (loading) {
-    return <p className="text-gray-500">Loading template...</p>;
-  }
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <LoadingSpinner 
+        type="cube" 
+        message="Loading portfolio template..." 
+      />
+    </div>
+  );
+}
+
 
   // Handle error state
   if (error) {

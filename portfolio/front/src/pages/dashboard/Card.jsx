@@ -17,6 +17,19 @@ import { Link } from "react-router-dom";
 
 const BASE_URL = window.location.origin;
 
+const getBadgeColor = (type) => {
+  switch (type) {
+    case "Premium":
+      return "bg-gradient-to-r from-purple-600 to-pink-600";
+    case "Standard":
+      return "bg-gradient-to-r from-blue-600 to-teal-500";
+    case "Basic":
+      return "bg-gradient-to-r from-gray-600 to-gray-500";
+    default:
+      return "bg-gray-300";
+  }
+};
+
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
@@ -96,7 +109,7 @@ export default function Card({ portfolios }) {
                 className="absolute inset-0"
               >
                 <img
-                  src={`https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&text=${encodeURIComponent(portfolio.name)}`}
+                  src={portfolio.thumbnail|| `https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&text=${encodeURIComponent(portfolio.name)}`}
                   alt={portfolio.name}
                   className="w-full h-full object-cover opacity-80"
                 />
@@ -108,16 +121,9 @@ export default function Card({ portfolios }) {
                 <span className={`px-3 py-1.5 rounded-full text-sm font-medium ${getCategoryColor(portfolio.category)}`}>
                   {portfolio.category}
                 </span>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="absolute top-4 right-4 flex gap-2">
-                <button
-                  onClick={() => handleLike(portfolio.id)}
-                  className="p-2 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-700 transition-colors"
-                >
-                  <FiHeart className={`w-4 h-4 ${likedCards[portfolio.id] ? 'fill-red-500 text-red-500' : 'text-gray-600 dark:text-gray-400'}`} />
-                </button>
+                <span className={`px-3 py-1.5 text-white rounded-full text-sm font-medium ${getBadgeColor(portfolio.type)}`}>
+                  {portfolio.type}
+                </span>
               </div>
             </div>
 

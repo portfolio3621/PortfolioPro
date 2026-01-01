@@ -22,50 +22,39 @@ export default function PortfolioBuyCard({ data, closeBuyPortfolioModel }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const handleOnEsc = (e) => {
-      if (e.key === "Escape") {
-        closeBuyPortfolioModel();
-      }
+    const handleEsc = (e) => {
+      if (e.key === "Escape") closeBuyPortfolioModel();
     };
-    document.addEventListener("keydown", handleOnEsc);
-    return () => {
-      document.removeEventListener("keydown", handleOnEsc);
-    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
   }, [closeBuyPortfolioModel]);
 
-
   const handleBuyNow = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+    setLoading(true);
+    setError(null);
 
+    try {
       const billData = {
-        portfolioId: data.id || data._id, // Assuming your data has id or _id field
-        status: "Claim",
+        portfolioId: data._id || data.id,
+        status: "Claim",           // ← Changed - makes more sense for new purchase
       };
 
-      // Make API call
-      let response = await Fetch.post(`bill`,billData)
-      if (!response.success) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const response = await Fetch.post("bill", billData);
+
+      if (!response?.success) {
+        throw new Error(response?.message || "Failed to create purchase record");
       }
 
+      // Success
+      alert("Purchase successful! You now own this portfolio template.");
+      closeBuyPortfolioModel();
 
-      if (response.success) {
-        // Show success message
-        alert(`Purchase successful!`);
-        
-        // Close modal or redirect if needed
-        closeBuyPortfolioModel();
-        
-        // You can also trigger a refresh of the parent component if needed
-        // window.location.reload();
-      } else {
-        setError(response.message || "Purchase failed. Please try again.");
-      }
+      // Optional: you could refresh parent list here
+      // window.location.reload(); or use context/redux to update UI
+
     } catch (err) {
-      console.error("Error creating bill:", err);
-      setError(err.message || "An error occurred. Please try again.");
+      console.log("Purchase error:", err);
+      setError(err.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -73,80 +62,81 @@ export default function PortfolioBuyCard({ data, closeBuyPortfolioModel }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 50 }}
+      initial={{ opacity: 0, scale: 0.92, y: 40 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: 50 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="relative w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl shadow-xl overflow-hidden p-5"
+      exit={{ opacity: 0, scale: 0.92, y: 40 }}
+      transition={{ duration: 0.25 }}
+      className="relative w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden p-6"
     >
-      {/* Close Button */}
       <button
         onClick={closeBuyPortfolioModel}
-        className="absolute top-3 right-3 text-zinc-500 hover:text-red-500 text-3xl transition"
+        className="absolute top-4 right-4 text-zinc-400 hover:text-red-500 text-3xl transition-colors"
         aria-label="Close"
       >
         <IoIosClose />
       </button>
 
-      {/* Thumbnail */}
       <motion.img
         src={data.thumbnail}
         alt={data.title}
-        className="rounded-xl w-full h-52 object-cover mb-4"
-        whileHover={{ scale: 1.03 }}
-        transition={{ duration: 0.3 }}
+        className="rounded-xl w-full h-56 object-cover mb-5 shadow-md"
+        whileHover={{ scale: 1.02 }}
       />
 
-      {/* Badge */}
       <div
-        className={`inline-block px-4 py-1 text-xs font-semibold text-white rounded-full mb-3 ${getBadgeColor(
-          data.Type
-        )}`}
+        className={`inline-block px-4 py-1.5 text-sm font-semibold text-white rounded-full mb-4 ${getBadgeColor(data.Type)}`}
       >
         {data.Type}
       </div>
 
-      {/* Info */}
-      <div className="space-y-2">
-        <h2 className="text-2xl font-semibold text-zinc-800 dark:text-white">
-          {data.title}
-        </h2>
-        <p className="text-lg font-bold text-green-600 dark:text-green-400">
-          ₹ {data.price}
-        </p>
-      </div>
+      <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-2">
+        {data.title}
+      </h2>
 
-      {/* Error Message */}
+      <p className="text-2xl font-extrabold text-green-600 dark:text-green-400 mb-6">
+        ₹{data.price?.toLocaleString() || data.price}
+      </p>
+
       {error && (
-        <div className="mt-4 p-3 bg-red-100 dark:bg-red-900/20 border border-red-400 dark:border-red-700 rounded-lg">
-          <p className="text-red-700 dark:text-red-400 text-sm">{error}</p>
+        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-red-700 dark:text-red-400 text-sm">
+          {error}
         </div>
       )}
 
-      {/* Buttons */}
-      <div className="mt-6 flex gap-4">
+      <div className="flex gap-4">
         <motion.button
-          whileTap={{ scale: 0.95 }}
-          whileHover={{ scale: 1.05 }}
-          disabled={loading}
-          className="w-1/2 py-3 border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-zinc-800 rounded-xl text-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className="flex-1 py-3 border-2 border-blue-600 dark:border-blue-500 text-blue-600 dark:text-blue-400 rounded-xl font-medium hover:bg-blue-50 dark:hover:bg-zinc-800 transition-colors"
         >
-        <Link to={`/portfolio/template/${data._id}`}>
-          Preview
-        </Link>
+          <Link to={`/portfolio/template/${data._id}`}>
+            Preview
+          </Link>
         </motion.button>
+
         <motion.button
-          whileTap={{ scale: 0.95 }}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           onClick={handleBuyNow}
           disabled={loading}
-          className="w-1/2 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg font-medium rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+          className={`flex-1 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-xl transition-all flex items-center justify-center shadow-md ${
+            loading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
         >
           {loading ? (
             <>
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
               </svg>
               Processing...
             </>

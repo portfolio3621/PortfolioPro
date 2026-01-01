@@ -1,32 +1,32 @@
 const mongoose = require("mongoose");
 
-const BillModel = new mongoose.Schema(
+const BillSchema = new mongoose.Schema(
   {
     portfolioId: {
       type: String,
-      require: true,
+      required: true,
     },
     token: {
       type: String,
-      unique: true,
     },
     userId: {
       type: String,
-      require: true,
+      required: true,
     },
     status: {
       type: String,
       enum: ["Claim", "UnClaim"],
     },
+
     unclaimedAt: Date,
+
     createdAt: {
       type: Date,
-      default: Date.now(),
+      default: Date.now,
     },
   },
   { versionKey: false }
 );
 
-const Bill = mongoose.model("bill", BillModel);
-
+const Bill = mongoose.model("bill", BillSchema);
 module.exports = Bill;

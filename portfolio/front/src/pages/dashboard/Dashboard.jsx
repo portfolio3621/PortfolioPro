@@ -116,13 +116,6 @@ export default function Dashboard() {
     await fetchPortfolios();
   };
 
-  const handleLogout = () => {
-    clearUser();
-    removeCookie("userId");
-    // Optional: Redirect to login page
-    // window.location.href = "/login";
-  };
-
   // Format last updated time
   const formatLastUpdated = () => {
     if (!lastUpdated) return "Never";
@@ -171,7 +164,7 @@ export default function Dashboard() {
       </div>
       
       {/* Nav with Zustand user data */}
-      <Nav onLogout={handleLogout} place="dashboard" />
+      <Nav place="dashboard" removeCookie={removeCookie}/>
       
       {/* Mobile Search */}
       <div className="md:hidden px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">

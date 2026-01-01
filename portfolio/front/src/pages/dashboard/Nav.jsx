@@ -18,6 +18,7 @@ import {
 } from 'react-icons/fi';
 import { LuTicket } from "react-icons/lu";
 import { useUserStore } from "../../stores/userStore";
+import Fetch from "../../Fetch.js";
 
 export default function Nav({ removeCookie, place }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -52,9 +53,14 @@ const {user:userData} = useUserStore();
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
     removeCookie('userId', { path: '/' });
+    await Fetch.get("/logout")
     window.location.href = '/login';
+    } catch (e) {
+      console.error(e)
+    }
   };
 
   const mainLinks = [

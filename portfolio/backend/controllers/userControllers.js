@@ -80,6 +80,7 @@ exports.dashboardData = async (req, res) => {
           thumbnail: portfolio.thumbnail,
           category: portfolio.category,
           price: portfolio.price,
+          type:portfolio.Type,
         };
       })
     );

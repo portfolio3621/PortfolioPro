@@ -21,42 +21,6 @@ function GetStarted() {
         setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
     };
 
-    const examplePortfolios = [
-        {
-            id: 1,
-            title: 'Minimalist Developer',
-            description: 'Clean code-focused layout with project showcases',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
-            tags: ['React', 'GitHub', 'Light'],
-            color: '#3B82F6'
-        },
-        {
-            id: 2,
-            title: 'Creative Artist',
-            description:
-                'Visual portfolio with gallery and client testimonials',
-            image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1172&q=80',
-            tags: ['Gallery', 'Testimonials', 'Dark'],
-            color: '#8B5CF6'
-        },
-        {
-            id: 3,
-            title: 'Professional Executive',
-            description: 'Corporate layout with experience timeline',
-            image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1169&q=80',
-            tags: ['Resume', 'Contact', 'Blue'],
-            color: '#10B981'
-        },
-        {
-            id: 4,
-            title: 'UX/UI Designer',
-            description: 'Interactive design portfolio with case studies',
-            image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
-            tags: ['Figma', 'Case Studies', 'Modern'],
-            color: '#EC4899'
-        }
-    ];
-
     const features = [
         {
             icon: '🚀',
@@ -258,68 +222,6 @@ function GetStarted() {
                             Explore templates that have helped professionals
                             land their dream jobs
                         </p>
-                    </div>
-
-                    <div className="portfolio-grid">
-                        {examplePortfolios.map(portfolio => (
-                            <div
-                                key={portfolio.id}
-                                className="portfolio-card hover-scale"
-                                style={{ '--card-color': portfolio.color }}
-                            >
-                                <div className="portfolio-image-container">
-                                    <img
-                                        src={portfolio.image}
-                                        alt={portfolio.title}
-                                        className="portfolio-image"
-                                        loading="lazy"
-                                    />
-                                    <div className="portfolio-overlay">
-                                        <div className="overlay-content">
-                                            <h3 className="portfolio-overlay-title">
-                                                {portfolio.title}
-                                            </h3>
-                                            <p className="portfolio-overlay-description">
-                                                {portfolio.description}
-                                            </p>
-                                            <div className="portfolio-tags">
-                                                {portfolio.tags.map(
-                                                    (tag, index) => (
-                                                        <span
-                                                            key={index}
-                                                            className="portfolio-tag"
-                                                        >
-                                                            {tag}
-                                                        </span>
-                                                    )
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="portfolio-content">
-                                    <div className="portfolio-header">
-                                        <h3 className="portfolio-title">
-                                            {portfolio.title}
-                                        </h3>
-                                        <span className="portfolio-price">
-                                            $49
-                                        </span>
-                                    </div>
-                                    <p className="portfolio-description">
-                                        {portfolio.description}
-                                    </p>
-                                    <div className="portfolio-actions">
-                                        <button className="preview-button">
-                                            Preview
-                                        </button>
-                                        <button className="select-button">
-                                            Select
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </section>
 
